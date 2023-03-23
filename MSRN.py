@@ -38,7 +38,6 @@ filter_sq, 5, activation='relu',padding='SAME')(excitation)
     y=Activation('sigmoid')(y)
     scale=input_layer*y
     return scale
- #  ''' 
 
 
 def SE_Conv_moule_1(input_layer):
@@ -111,7 +110,6 @@ def attention_moudle(input_layer,filter,a,b):
     return layer_output
 
 
-
 attention_moudle(input_layer_Global,128,27,128)
 
 
@@ -153,25 +151,22 @@ def MY_NET2(input_layer):
     output_layer=MaxPooling2D(strides=1,padding='same')(layer5)
     return output_layer
 
-
-
 Local_W=7
 Local_n_component=20
 Global_W=27
 Global_n_component=3
 
 
-input_layer_local=Input((Local_W,Local_W,Local_n_component),name='input_layer_local') #input_layer_local=(7,7,20)
-input_layer_Global=Input((Global_W,Global_W,Global_n_component),name='input_layer_Global')#input_layer_Glbal=(27,27,3)
+input_layer_local=Input((Local_W,Local_W,Local_n_component),name='input_layer_local') 
+input_layer_Global=Input((Global_W,Global_W,Global_n_component),name='input_layer_Global')
 
 
-output_layer_local,bb=Local(input_layer_local)    #Local 输出 (none,3,3,64)
+output_layer_local,bb=Local(input_layer_local)
 
-output_layer_Global,b=Global(input_layer_Global) #Global 输出 (none,3,3,64)
+output_layer_Global,b=Global(input_layer_Global)
 
 c=MY_NET(b)
 d=MY_NET2(bb)
-print('c',c)
 
 concat_layer=concatenate([output_layer_local,output_layer_Global,c,d],axis=-1)
 
